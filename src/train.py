@@ -58,7 +58,7 @@ def main():
     train_generator = ImageDataGenerator(train_file, shuffle = True)
     val_generator = ImageDataGenerator(val_file, shuffle = False) 
 
-    batch_size = args.batch_size
+
     train_batches_per_epoch = train_generator.data_size
     val_batches_per_epoch = val_generator.data_size
 

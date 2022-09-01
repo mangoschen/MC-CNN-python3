@@ -27,10 +27,10 @@ parser.add_argument("-ps", "--patch_size", type=int, default=11, help="length fo
 #                                                                    this is used for parallel matching of different images")
 #parser.add_argument("-e", "--end", type=int, required=True, help="index of last image to do matching")
 
-parser.add_argument("--list_file", type=str, default="/home/mang/PycharmProjects/MC-CNN-python3/data/list_EO/test.txt", help="")
+parser.add_argument("--list_file", type=str, default="../data/list/test.txt", help="")
 parser.add_argument("--data_dir", type=str, default="../data", help="")
-parser.add_argument("--save_dir", type=str, default='/media/mang/Maxtor/Img/save', help="")
-parser.add_argument("--resume", type=str, default="../../Code-rf/model/checkpoint/md_160k", help="")
+parser.add_argument("--save_dir", type=str, default='../data/save', help="")
+parser.add_argument("--resume", type=str, default="../data/checkpoint", help="")
 parser.add_argument("-t", "--tag", type=str, default="EO", help="tag used to indicate one run")
 parser.add_argument("-s", "--start", type=int, default=0, help="index of first image to do matching,\
                                                                     this is used for parallel matching of different images")
@@ -81,8 +81,11 @@ def main():
     data_dir = args.data_dir
     save_res_dir = os.path.join(save_dir, "submit_{}".format(args.tag))
     save_img_dir = os.path.join(save_dir, "submit_{}_imgs".format(args.tag))
-    util.recurMk(save_res_dir)
-    util.recurMk(save_img_dir)
+    #util.recurMk(save_res_dir)
+    #util.recurMk(save_img_dir)
+    os.makedirs(save_res_dir,exist_ok=True)
+    os.makedirs(save_img_dir,exist_ok=True)
+
 
     index = 0
     start = args.start
@@ -94,7 +97,7 @@ def main():
     ####################
     # do matching
     for left_path in tqdm(img_paths):
-        print("index: ".format(index))
+        print("index: {}".format(index))
         if index < start:
             index += 1
             print("passed")
@@ -115,8 +118,10 @@ def main():
         res_dir = res_dir[:res_dir.rfind(left_image_suffix)-1]
         img_dir = img_dir[:img_dir.rfind(left_image_suffix)-1]
 
-        util.recurMk(res_dir)
-        util.recurMk(img_dir)
+        # util.recurMk(res_dir)
+        # util.recurMk(img_dir)
+        os.makedirs(res_dir,exist_ok=True)
+        os.makedirs(img_dir,exist_ok=True)
 
         out_time_path = os.path.join(res_dir, out_time_file)
         out_path = os.path.join(res_dir, out_file)
