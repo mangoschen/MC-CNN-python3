@@ -64,7 +64,10 @@ class ImageDataGenerator:
                 sl = l.strip()
                 self.left_paths.append(sl)
                 self.right_paths.append(sl.replace(self.in_left_suffix, self.in_right_suffix))
-                self.gt_paths.append(sl.replace(self.in_left_suffix, self.gt_suffix))
+                gt_path = sl.replace(self.in_left_suffix, self.gt_suffix)
+                gt_path = gt_path.replace('MiddEval3-data-H','MiddEval3-GT0-H')
+                self.gt_paths.append(gt_path)
+
             
             # store total number of data
             self.data_size = len(self.left_paths)
@@ -245,7 +248,7 @@ class ImageDataGenerator:
 
 # just used for debug
 if __name__ == "__main__" :
-    dg = ImageDataGenerator("/scratch/xz/MC-CNN-python/data/list/train.txt")
+    dg = ImageDataGenerator("../data/list/train.txt")
     patches_left, patches_right_pos, patches_right_neg = dg.next_batch(128)
     print(patches_left.shape)
     print(patches_right_pos.shape)
